@@ -75,6 +75,8 @@ const modalIsOpenImg = document.querySelector('.lightbox__image')
 
 
 const elements = galleryItems.map((image) => {
+
+ 
   
   return `<li class="gallery__item">
   <a
@@ -98,7 +100,7 @@ galleryListEl.insertAdjacentHTML(
 galleryListEl.addEventListener('click', modalOpen);
 
 function modalOpen(event) {
-  event.preventDefault();
+    event.preventDefault();
   if (event.target.nodeName !== "IMG"){
     return;
   }
@@ -109,22 +111,24 @@ function modalIsOpen(event) {
   modalToggle();
   modalIsOpenImg.src = event.target.dataset.source;
   modalIsOpenImg.alt = event.target.alt;
-  console.log(event.target.dataset.index);
+  document.addEventListener('keyup', arrowListener)
 }
 
 function modalToggle(){
 modal.classList.toggle('is-open')
 };
 
-window.addEventListener('keyup', arrowListener)
 
 function arrowListener (event){
 
-  console.log(event);
-
-  console.log(modalIsOpenImg.index);
-
+ 
+  
 if(event.key !== 'ArrowRight') {
+  return;
+}
+
+ 
+if(event.key !== 'ArrowLeft') {
   return;
 }
 
@@ -133,6 +137,8 @@ if(event.key !== 'ArrowRight') {
 }
 
 
+
+ 
 
 
 
