@@ -67,16 +67,14 @@ const galleryItems = [
 
 const galleryListEl = document.querySelector('.js-gallery');
 const modal = document.querySelector('.lightbox');
-const modalCloseBtn = document.querySelector('.lightbox__button');
+const modalCloseBtn = document.querySelector('button[data-action="close-lightbox"]');
 const overlayClickModalClose = document.querySelector('.lightbox__overlay');
 const modalIsOpenImg = document.querySelector('.lightbox__image')
 
 
 
 
-const elements = galleryItems.map((image) => {
-
- 
+const elements = galleryItems.map((image, index) => {
   
   return `<li class="gallery__item">
   <a
@@ -88,6 +86,7 @@ const elements = galleryItems.map((image) => {
       src="${image.preview}"
       data-source="${image.original}"
       alt="${image.description}"
+      data-index="${index}"
     />
   </a>
 </li>`
@@ -111,6 +110,7 @@ function modalIsOpen(event) {
   modalToggle();
   modalIsOpenImg.src = event.target.dataset.source;
   modalIsOpenImg.alt = event.target.alt;
+  console.log(event.target.dataset.index);
   document.addEventListener('keyup', arrowListener)
 }
 
