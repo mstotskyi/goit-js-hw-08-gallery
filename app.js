@@ -63,3 +63,98 @@ const galleryItems = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+
+const galleryListEl = document.querySelector('.js-gallery');
+const modal = document.querySelector('.lightbox');
+const modalCloseBtn = document.querySelector('.lightbox__button');
+const overlayClickModalClose = document.querySelector('.lightbox__overlay');
+const modalIsOpenImg = document.querySelector('.lightbox__image')
+
+
+
+
+const elements = galleryItems.map((image) => {
+  
+  return `<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href="${image.original}"
+  >
+    <img
+      class="gallery__image"
+      src="${image.preview}"
+      data-source="${image.original}"
+      alt="${image.description}"
+    />
+  </a>
+</li>`
+});
+
+galleryListEl.insertAdjacentHTML(
+  "beforeend",
+  `${elements.join('')}`);
+  
+galleryListEl.addEventListener('click', modalOpen);
+
+function modalOpen(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG"){
+    return;
+  }
+ modalIsOpen(event);
+};
+
+function modalIsOpen(event) {
+  modalToggle();
+  modalIsOpenImg.src = event.target.dataset.source;
+  modalIsOpenImg.alt = event.target.alt;
+  console.log(event.target.dataset.index);
+}
+
+function modalToggle(){
+modal.classList.toggle('is-open')
+};
+
+window.addEventListener('keyup', arrowListener)
+
+function arrowListener (event){
+
+  console.log(event);
+
+  console.log(modalIsOpenImg.index);
+
+if(event.key !== 'ArrowRight') {
+  return;
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+overlayClickModalClose.addEventListener('click', modalIsClose);
+modalCloseBtn.addEventListener("click", modalIsClose);
+window.addEventListener('keyup', closeModalOnESC);
+
+function modalIsClose (){
+  modalToggle();
+  modalIsOpenImg.src = '';
+}
+
+function closeModalOnESC(event) {
+  if (event.key !== 'Escape'){
+    return;
+  };
+  modalIsClose ();
+};
